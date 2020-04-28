@@ -1,4 +1,4 @@
-module github.com/harshanarayana/k8s-enhancements
+module k8s-enhancements
 
 go 1.14
 

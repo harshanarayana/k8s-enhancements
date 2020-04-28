@@ -248,3 +248,4 @@ tags
 # Persistent undo
 [._]*.un~
 
+./k8s-enhancements

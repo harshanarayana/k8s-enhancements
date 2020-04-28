@@ -16,9 +16,9 @@ limitations under the License.
 package cmd
 
 import (
-	"github.com/harshanarayana/k8s-enhancements/git"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"k8s-enhancements/git"
 )
 
 type ListOptions struct {

@@ -17,9 +17,9 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/harshanarayana/k8s-enhancements/git"
-	"github.com/harshanarayana/k8s-enhancements/models"
 	"github.com/spf13/cobra"
+	"k8s-enhancements/git"
+	"k8s-enhancements/models"
 	"os"
 
 	homedir "github.com/mitchellh/go-homedir"
