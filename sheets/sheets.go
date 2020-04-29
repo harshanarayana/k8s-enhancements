@@ -22,7 +22,7 @@ var sheetService *sheets.Service
 var homeConfigPath string
 
 const (
-	K8SSheetId = "1E89GNZRwmnfVerOqWqrmzVII8TQlQ0iiI_FgYKxanGs"
+	K8SSheetId      = "1E89GNZRwmnfVerOqWqrmzVII8TQlQ0iiI_FgYKxanGs"
 	EnhancementsTab = "Enhancements!A11:M"
 )
 

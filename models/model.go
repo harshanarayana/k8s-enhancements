@@ -6,30 +6,30 @@ type GitAccess struct {
 }
 
 type EnhancementRow struct {
-	IssueID string
-	EnhancementTitle string
+	IssueID           string
+	EnhancementTitle  string
 	EnhancementStatus string
-	StageStatus string
-	Stage string
-	Sig string
-	KEPOwner string
-	ProposalLink string
-	KEPState string
-	KKPRs string
-	PRList string
-	Notes string
+	StageStatus       string
+	Stage             string
+	Sig               string
+	KEPOwner          string
+	ProposalLink      string
+	KEPState          string
+	KKPRs             string
+	PRList            string
+	Notes             string
 }
 
 var AttributeMapper = map[int]string{
-	0: "IssueID",
-	1: "EnhancementTitle",
-	3: "EnhancementStatus",
-	4: "StageStatus",
-	5: "Stage",
-	6: "Sig",
-	7: "KEPOwner",
-	8: "ProposalLink",
-	9: "KEPState",
+	0:  "IssueID",
+	1:  "EnhancementTitle",
+	3:  "EnhancementStatus",
+	4:  "StageStatus",
+	5:  "Stage",
+	6:  "Sig",
+	7:  "KEPOwner",
+	8:  "ProposalLink",
+	9:  "KEPState",
 	10: "KKPRs",
 	11: "PRList",
 	12: "Notes",

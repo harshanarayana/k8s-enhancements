@@ -55,7 +55,7 @@ func DisplayRows(issues []*models.EnhancementRow) {
 	table.Render()
 }
 
-func transformTrackingStatus(status string) string  {
+func transformTrackingStatus(status string) string {
 	switch strings.ToLower(status) {
 	case "tracked", "track", "t":
 		return "︎✔︎"
@@ -80,6 +80,6 @@ func getTrackingState(issue string) (string, string, string) {
 	}
 }
 
-func init()  {
+func init() {
 	tracker = GetTrackingData()
 }

@@ -25,11 +25,12 @@ import (
 )
 
 var credentialFile string
+
 // sheetCmd represents the sheet command
 var sheetCmd = &cobra.Command{
 	Use:   "sheet",
 	Short: "Helper Utilities to manage kubernetes/enhancements on Google Sheets",
-	Long: `Helper Utilities to manage kubernetes/enhancements on Google Sheets`,
+	Long:  `Helper Utilities to manage kubernetes/enhancements on Google Sheets`,
 }
 
 func init() {

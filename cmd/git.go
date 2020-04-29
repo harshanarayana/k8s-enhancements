@@ -24,7 +24,7 @@ import (
 var gitCmd = &cobra.Command{
 	Use:   "git",
 	Short: "Helper Utilities to manage kubernetes/enhancements on GitHub",
-	Long: `Helper Utilities to manage kubernetes/enhancements on GitHub`,
+	Long:  `Helper Utilities to manage kubernetes/enhancements on GitHub`,
 }
 
 func init() {

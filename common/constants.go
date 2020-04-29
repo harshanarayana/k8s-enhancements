@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func GetConfigHome() string  {
+func GetConfigHome() string {
 	home, err := homedir.Dir()
 	if err != nil {
 		fmt.Println(err)

@@ -29,4 +29,3 @@ func GetTrackingData() models.Tracker {
 	}
 	return tracker
 }
-

@@ -36,7 +36,7 @@ var initialComment bool
 var trackCmd = &cobra.Command{
 	Use:   "track",
 	Short: "Update tracking status for an Enhancement in Local cache",
-	Long: `Update tracking status for an Enhancement in Local cache`,
+	Long:  `Update tracking status for an Enhancement in Local cache`,
 	Run: func(cmd *cobra.Command, args []string) {
 		basePath := common.GetConfigHome()
 		trackFile := strings.Join([]string{basePath, "track.json"}, string(os.PathSeparator))

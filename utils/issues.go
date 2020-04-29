@@ -38,7 +38,7 @@ func DisplayIssues(issues []*github.Issue) {
 	}
 	table.SetBorder(true)
 	table.SetRowLine(true)
-	table.SetColMinWidth(1, 75)
+	table.SetColMinWidth(1, 52)
 	table.SetAutoWrapText(false)
 	table.AppendBulk(data)
 	table.Render()
