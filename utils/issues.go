@@ -10,9 +10,10 @@ import (
 
 func DisplayIssues(issues []*github.Issue) {
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Issue ID", "Issue Title", "Assignee", "Labels", "Milestone", "Last Updated"})
+	table.SetHeader([]string{"Issue ID", "Issue Title", "Assignee", "Labels", "Milestone", "Last Updated", "PR Link"})
 
 	table.SetHeaderColor(
+		tablewriter.Colors{tablewriter.Bold},
 		tablewriter.Colors{tablewriter.Bold},
 		tablewriter.Colors{tablewriter.Bold},
 		tablewriter.Colors{tablewriter.Bold},
@@ -33,7 +34,7 @@ func DisplayIssues(issues []*github.Issue) {
 		for _, assignee := range issue.Assignees {
 			assignees = append(assignees, assignee.GetLogin())
 		}
-		data = append(data, []string{strconv.Itoa(issue.GetNumber()), issue.GetTitle(), strings.Join(assignees, "\n"), strings.Join(labels, "\n"), issue.GetMilestone().GetTitle(), issue.GetUpdatedAt().Format("January 2, 2006")})
+		data = append(data, []string{strconv.Itoa(issue.GetNumber()), issue.GetTitle(), strings.Join(assignees, "\n"), strings.Join(labels, "\n"), issue.GetMilestone().GetTitle(), issue.GetUpdatedAt().Format("January 2, 2006"), issue.GetPullRequestLinks().GetURL()})
 	}
 	table.SetBorder(true)
 	table.SetRowLine(true)
