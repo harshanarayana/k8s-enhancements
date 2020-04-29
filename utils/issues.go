@@ -25,10 +25,15 @@ func DisplayIssues(issues []*github.Issue) {
 
 	for _, issue := range issues {
 		var labels []string
+		var assignees []string
 		for _, label := range issue.Labels {
 			labels = append(labels, label.GetName())
 		}
-		data = append(data, []string{strconv.Itoa(issue.GetNumber()), issue.GetTitle(), issue.GetAssignee().GetLogin(), strings.Join(labels, "\n"), issue.GetMilestone().GetTitle(), issue.GetUpdatedAt().Format("January 2, 2006")})
+
+		for _, assignee := range issue.Assignees {
+			assignees = append(assignees, assignee.GetLogin())
+		}
+		data = append(data, []string{strconv.Itoa(issue.GetNumber()), issue.GetTitle(), strings.Join(assignees, "\n"), strings.Join(labels, "\n"), issue.GetMilestone().GetTitle(), issue.GetUpdatedAt().Format("January 2, 2006")})
 	}
 	table.SetBorder(true)
 	table.SetRowLine(true)
