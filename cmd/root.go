@@ -90,6 +90,6 @@ func initConfig() {
 	_ = viper.ReadInConfig()
 }
 
-func setupClients()  {
+func setupClients() {
 	git.InitGit(viper.GetString("git-access-token"))
 }

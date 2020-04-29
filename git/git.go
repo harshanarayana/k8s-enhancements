@@ -2,14 +2,14 @@ package git
 
 import (
 	"context"
-	"fmt"
 	github "github.com/google/go-github/v31/github"
 	"golang.org/x/oauth2"
+	"k8s-enhancements/utils"
 )
 
 var gitClient *github.Client
 
-func InitGit(token string)  {
+func InitGit(token string) {
 	ctx := context.Background()
 	ts := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: token},
@@ -19,22 +19,56 @@ func InitGit(token string)  {
 	gitClient = github.NewClient(tc)
 }
 
-func ListIssues(milestone, state, assignee string, labels []string, maxSize int)  {
-	if issues, _, err := gitClient.Issues.ListByRepo(context.Background(), "kubernetes", "enhancements", &github.IssueListByRepoOptions{
-		Milestone: milestone,
-		State: state,
-		Assignee: assignee,
-		Labels: labels,
-		ListOptions: github.ListOptions{
-			PerPage: maxSize,
-		},
-	}); err != nil {
+func GetMilestone(repo, milestoneName string) *github.Milestone {
+	if milestones, _, err := gitClient.Issues.ListMilestones(context.Background(), "kubernetes", repo, &github.MilestoneListOptions{}); err != nil {
 		panic(err)
 	} else {
-		for _, issue := range issues {
-			if ! issue.IsPullRequest() {
-				fmt.Println(issue.GetTitle())
+		for _, milestone := range milestones {
+			if milestone.GetTitle() == milestoneName {
+				return milestone
 			}
 		}
 	}
+	return nil
+}
+
+func ListIssues(repo, state, assignee, sortOptions string, milestones, labels []string, maxSize int) {
+	issuesToList := make([]*github.Issue, 0)
+	milestoneMap := make(map[string]bool, 0)
+
+	for _, m := range milestones {
+		milestoneMap[m] = true
+	}
+
+	listOptions := &github.IssueListByRepoOptions{
+		State:    state,
+		Assignee: assignee,
+		Labels:   labels,
+		Sort:     sortOptions,
+	}
+
+	for {
+		listOptions.PerPage = maxSize
+		if issues, resp, err := gitClient.Issues.ListByRepo(context.Background(), "kubernetes", repo, listOptions); err != nil {
+			panic(err)
+		} else {
+			for _, issue := range issues {
+				if !issue.IsPullRequest() {
+					if len(milestoneMap) > 0 {
+						if _, ok := milestoneMap[issue.GetMilestone().GetTitle()]; ok {
+							issuesToList = append(issuesToList, issue)
+						}
+					} else {
+						issuesToList = append(issuesToList, issue)
+					}
+				}
+			}
+			if resp.NextPage == 0 {
+				break
+			} else {
+				listOptions.Page = resp.NextPage
+			}
+		}
+	}
+	utils.DisplayIssues(issuesToList)
 }

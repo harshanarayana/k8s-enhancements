@@ -22,11 +22,13 @@ import (
 )
 
 type ListOptions struct {
-	MaxSize  int
-	Milestone string
-	State string
-	Assignee string
-	Labels []string
+	MaxSize   int
+	Milestone []string
+	State     string
+	Assignee  string
+	Labels    []string
+	Repo      string
+	Sort      string
 }
 
 var options ListOptions
@@ -34,20 +36,31 @@ var options ListOptions
 // listCmd represents the list command
 var listCmd = &cobra.Command{
 	Use:   "list",
-	Short: "List all available Issues on Enhancement Repo",
-	Long: `List Enhancements under kubernetes/enhancements repo based on search criteria specified`,
+	Short: "List all available Issues on Enhancements/Any other Repo",
+	Long:  `List Enhancements under kubernetes/enhancements or k/* repo based on search criteria specified`,
 	Run: func(cmd *cobra.Command, args []string) {
-		git.ListIssues(viper.GetString("milestone"), viper.GetString("state"), viper.GetString("assignee"), viper.GetStringSlice("labels"), viper.GetInt("max-size"))
+		git.ListIssues(viper.GetString("repo"), viper.GetString("state"), viper.GetString("assignee"), validateSortOptions(viper.GetString("sort")), viper.GetStringSlice("milestone"), viper.GetStringSlice("label"), viper.GetInt("max-size"))
 	},
 }
 
 func init() {
 	issuesCmd.AddCommand(listCmd)
 
+	listCmd.PersistentFlags().StringVarP(&options.Repo, "repo", "r", "enhancements", "GitHub Repo to run List ops against")
 	listCmd.PersistentFlags().IntVarP(&options.MaxSize, "max-size", "m", 0, "Max Records to display with paginated request")
-	listCmd.PersistentFlags().StringVar(&options.Milestone, "milestone", "", "Milestone assigned to the Issue")
+	listCmd.PersistentFlags().StringSliceVar(&options.Milestone, "milestone", []string{}, "Milestone assigned to the Issue")
 	listCmd.PersistentFlags().StringVar(&options.State, "state", "", "Issue State")
 	listCmd.PersistentFlags().StringVar(&options.Assignee, "assignee", "", "Assigned User")
-	listCmd.PersistentFlags().StringArrayVar(&options.Labels, "label", []string{}, "Labels Assigned to the Issue")
+	listCmd.PersistentFlags().StringVar(&options.Sort, "sort", "", "Sort ordering for listing issues")
+	listCmd.PersistentFlags().StringSliceVar(&options.Labels, "label", []string{}, "Labels Assigned to the Issue")
 	_ = viper.BindPFlags(listCmd.PersistentFlags())
+}
+
+func validateSortOptions(sortOption string) string {
+	switch sortOption {
+	case "created", "updated", "comments", "":
+		return sortOption
+	default:
+		return "created"
+	}
 }
