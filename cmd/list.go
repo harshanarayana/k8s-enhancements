@@ -38,6 +38,9 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List all available Issues on Enhancements/Any other Repo",
 	Long:  `List Enhancements under kubernetes/enhancements or k/* repo based on search criteria specified`,
+	PreRun: func(cmd *cobra.Command, args []string) {
+		git.InitGit(viper.GetString("git-access-token"))
+	},
 	Run: func(cmd *cobra.Command, args []string) {
 		git.ListIssues(viper.GetString("repo"), viper.GetString("state"), viper.GetString("assignee"), validateSortOptions(viper.GetString("sort")), viper.GetStringSlice("milestone"), viper.GetStringSlice("label"), viper.GetInt("max-size"))
 	},

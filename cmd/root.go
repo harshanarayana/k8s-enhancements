@@ -18,9 +18,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"k8s-enhancements/git"
 	"k8s-enhancements/models"
-	"k8s-enhancements/sheets"
 	"os"
 	"strings"
 
@@ -90,6 +88,5 @@ func initConfig() {
 }
 
 func setupClients() {
-	git.InitGit(viper.GetString("git-access-token"))
-	sheets.InitSheetClient(viper.GetString("sheet-credentials"))
+	// no op
 }
