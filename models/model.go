@@ -34,3 +34,14 @@ var AttributeMapper = map[int]string{
 	11: "PRList",
 	12: "Notes",
 }
+
+type TrackSpec struct {
+	IssueID string `json:"issue_id"`
+	Status  string `json:"status"`
+	Note    string `json:"note"`
+	Date    string `json:"date"`
+}
+
+type Tracker struct {
+	Records map[string]TrackSpec `json:"records"`
+}
