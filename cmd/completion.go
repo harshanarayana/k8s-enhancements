@@ -29,7 +29,7 @@ var completionCmd = &cobra.Command{
 	Short: "Generates bash completion scripts",
 	Long: `To load completion run
 
-. <(bitbucket completion)
+. <(k8s-enhancements completion)
 
 To configure your bash shell to load completions for each session add to your bashrc
 
@@ -41,6 +41,8 @@ To configure your bash shell to load completions for each session add to your ba
 			_ = rootCmd.GenZshCompletion(os.Stdout)
 		case "bash":
 			_ = rootCmd.GenBashCompletion(os.Stdout)
+		default:
+			_ = rootCmd.GenZshCompletion(os.Stdout)
 		}
 	},
 }
@@ -49,4 +51,5 @@ func init() {
 	rootCmd.AddCommand(completionCmd)
 
 	completionCmd.PersistentFlags().StringVar(&completionMode, "completion-mode", "zsh", "Terminal Type to generate Auto Complete")
+	_ = viper.BindPFlags(completionCmd.PersistentFlags())
 }
