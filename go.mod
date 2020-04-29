@@ -9,4 +9,6 @@ require (
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/viper v1.6.3
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
+	google.golang.org/api v0.22.0
+	gopkg.in/Iwark/spreadsheet.v2 v2.0.0-20191122095212-08231195c43b // indirect
 )

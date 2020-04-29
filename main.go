@@ -15,7 +15,9 @@ limitations under the License.
 */
 package main
 
-import "k8s-enhancements/cmd"
+import (
+	"k8s-enhancements/cmd"
+)
 
 func main() {
 	cmd.Execute()

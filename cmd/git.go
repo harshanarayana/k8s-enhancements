@@ -17,15 +17,21 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
-// issuesCmd represents the issues command
-var issuesCmd = &cobra.Command{
-	Use:   "issues",
-	Short: "List GitHub Enhancement Issues",
-	Long:  `A command to track k/* Issues for enhancements purpose`,
+// gitCmd represents the git command
+var gitCmd = &cobra.Command{
+	Use:   "git",
+	Short: "Helper Utilities to manage kubernetes/enhancements on GitHub",
+	Long: `Helper Utilities to manage kubernetes/enhancements on GitHub`,
 }
 
 func init() {
-	gitCmd.AddCommand(issuesCmd)
+	rootCmd.AddCommand(gitCmd)
+
+	gitCmd.PersistentFlags().StringVarP(&gitAccess.UserName, "git-user", "u", "", "GitHub Username")
+	gitCmd.PersistentFlags().StringVarP(&gitAccess.AccessToken, "git-access-token", "t", "", "GitHub Access token")
+
+	_ = viper.BindPFlags(gitCmd.PersistentFlags())
 }

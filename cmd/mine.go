@@ -17,15 +17,27 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+	"k8s-enhancements/sheets"
+	"k8s-enhancements/utils"
 )
 
-// issuesCmd represents the issues command
-var issuesCmd = &cobra.Command{
-	Use:   "issues",
-	Short: "List GitHub Enhancement Issues",
-	Long:  `A command to track k/* Issues for enhancements purpose`,
+var userName string
+
+// mineCmd represents the mine command
+var mineCmd = &cobra.Command{
+	Use:   "mine",
+	Short: "List all the items in tracking sheet in my name",
+	Long: `Fetch and display all the items in my name from K8s Enhancements Google Sheet`,
+	Run: func(cmd *cobra.Command, args []string) {
+		utils.DisplayRows(sheets.GetMyAssignments(viper.GetString("user")))
+	},
 }
 
 func init() {
-	gitCmd.AddCommand(issuesCmd)
+	sheetCmd.AddCommand(mineCmd)
+
+	mineCmd.PersistentFlags().StringVar(&userName, "user", "", "Filter values for C10")
+
+	_ = viper.BindPFlags(mineCmd.PersistentFlags())
 }

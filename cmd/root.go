@@ -20,7 +20,9 @@ import (
 	"github.com/spf13/cobra"
 	"k8s-enhancements/git"
 	"k8s-enhancements/models"
+	"k8s-enhancements/sheets"
 	"os"
+	"strings"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
@@ -58,10 +60,7 @@ func init() {
 	cobra.OnInitialize(initConfig)
 	cobra.OnInitialize(setupClients)
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.k8s-enhancements.yaml)")
-
-	rootCmd.PersistentFlags().StringVarP(&gitAccess.UserName, "git-user", "u", "", "GitHub Username")
-	rootCmd.PersistentFlags().StringVarP(&gitAccess.AccessToken, "git-access-token", "t", "", "GitHub Access token")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.k8s-enhancements/config.yaml)")
 
 	_ = viper.BindPFlags(rootCmd.PersistentFlags())
 }
@@ -80,8 +79,8 @@ func initConfig() {
 		}
 
 		// Search config in home directory with name ".k8s-enhancements" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".k8s-enhancements")
+		viper.AddConfigPath(strings.Join([]string{home, ".k8s-enhancements"}, string(os.PathSeparator)))
+		viper.SetConfigName("config")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
@@ -92,4 +91,5 @@ func initConfig() {
 
 func setupClients() {
 	git.InitGit(viper.GetString("git-access-token"))
+	sheets.InitSheetClient(viper.GetString("sheet-credentials"))
 }
