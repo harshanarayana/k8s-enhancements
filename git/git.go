@@ -72,3 +72,11 @@ func ListIssues(repo, state, assignee, sortOptions string, milestones, labels []
 	}
 	utils.DisplayIssues(issuesToList)
 }
+
+func AddComment(owner, repo, comment string, issueID int)  {
+	cmt := &github.IssueComment{Body: github.String(comment)}
+
+	if _, _, err := gitClient.Issues.CreateComment(context.Background(), owner, repo, issueID, cmt); err != nil {
+		panic(err)
+	}
+}

@@ -30,6 +30,8 @@ var gitCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(gitCmd)
 
+	gitCmd.PersistentFlags().StringVarP(&gitAccess.Owner, "owner", "o", "kubernetes", "GitHub Repo Owner")
+	gitCmd.PersistentFlags().StringVarP(&gitAccess.Repo, "repo", "r", "enhancements", "GitHub Repository")
 	gitCmd.PersistentFlags().StringVarP(&gitAccess.UserName, "git-user", "u", "", "GitHub Username")
 	gitCmd.PersistentFlags().StringVarP(&gitAccess.AccessToken, "git-access-token", "t", "", "GitHub Access token")
 

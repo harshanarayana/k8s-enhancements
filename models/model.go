@@ -3,6 +3,8 @@ package models
 type GitAccess struct {
 	UserName    string
 	AccessToken string
+	Owner       string
+	Repo        string
 }
 
 type EnhancementRow struct {

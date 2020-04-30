@@ -49,7 +49,6 @@ var listCmd = &cobra.Command{
 func init() {
 	issuesCmd.AddCommand(listCmd)
 
-	listCmd.PersistentFlags().StringVarP(&options.Repo, "repo", "r", "enhancements", "GitHub Repo to run List ops against")
 	listCmd.PersistentFlags().IntVarP(&options.MaxSize, "max-size", "m", 0, "Max Records to display with paginated request")
 	listCmd.PersistentFlags().StringSliceVar(&options.Milestone, "milestone", []string{}, "Milestone assigned to the Issue")
 	listCmd.PersistentFlags().StringVar(&options.State, "state", "", "Issue State")
