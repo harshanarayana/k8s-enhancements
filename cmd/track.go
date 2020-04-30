@@ -53,9 +53,17 @@ var trackCmd = &cobra.Command{
 			spec.Date = time.Now().Format("January 2, 2006")
 		} else {
 			spec.IssueID = item.IssueID
-			spec.Status = status
-			spec.Note = note
+			spec.Status = item.Status
+			spec.Note = item.Note
 			spec.Date = time.Now().Format("January 2, 2006")
+
+			if status != "" {
+				spec.Status = status
+			}
+
+			if note != "" {
+				spec.Note = note
+			}
 		}
 
 		if viper.GetBool("initial-comment") {
