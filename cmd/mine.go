@@ -23,6 +23,7 @@ import (
 )
 
 var userName string
+var trackStatus string
 
 // mineCmd represents the mine command
 var mineCmd = &cobra.Command{
@@ -33,7 +34,7 @@ var mineCmd = &cobra.Command{
 		sheets.InitSheetClient(viper.GetString("sheet-credentials"))
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		utils.DisplayRows(sheets.GetMyAssignments(viper.GetString("user")))
+		utils.DisplayRows(sheets.GetMyAssignments(viper.GetString("user"), viper.GetString("enhancement-status")))
 	},
 }
 
@@ -41,6 +42,6 @@ func init() {
 	sheetCmd.AddCommand(mineCmd)
 
 	mineCmd.PersistentFlags().StringVar(&userName, "user", "", "Filter values for C10")
-
+	mineCmd.PersistentFlags().StringVar(&trackStatus, "enhancement-status", "", "Enhancement Status to Filter")
 	_ = viper.BindPFlags(mineCmd.PersistentFlags())
 }

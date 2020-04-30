@@ -102,7 +102,7 @@ func InitSheetClient(configFile string) {
 	}
 }
 
-func GetMyAssignments(username string) []*models.EnhancementRow {
+func GetMyAssignments(username, status string) []*models.EnhancementRow {
 	enhancements := make([]*models.EnhancementRow, 0)
 	if resp, err := sheetService.Spreadsheets.Values.Get(K8SSheetId, EnhancementsTab).Do(); err != nil {
 		panic(err)
@@ -114,6 +114,11 @@ func GetMyAssignments(username string) []*models.EnhancementRow {
 				if fmt.Sprintf("%s", row[2]) != username {
 					continue
 				}
+
+				if status != "" && fmt.Sprintf("%s", row[3]) != status {
+					continue
+				}
+
 				enh := &models.EnhancementRow{}
 				if len(row) < 5 {
 					continue
