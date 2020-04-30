@@ -33,4 +33,4 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           automatic_release_tag: windows-latest
           files: |
-            ./k8s-enhancements
+            k8s-enhancements.exe
