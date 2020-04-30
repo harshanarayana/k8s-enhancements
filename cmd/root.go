@@ -33,16 +33,10 @@ var cfgFile string
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "k8s-enhancements",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
+	Short: "A tool to help manage kubernets/enhancements",
+	Long: `A helper tool for managing kubernetes/enhancements and related Google Sheets.
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	//	Run: func(cmd *cobra.Command, args []string) { },
+Tooling to help sig/release enhancements team for their active duration`,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
