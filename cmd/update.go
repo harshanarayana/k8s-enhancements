@@ -19,29 +19,33 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"k8s-enhancements/sheets"
-	"k8s-enhancements/utils"
 )
 
-var userName string
-var trackStatus string
+var updates map[string]string
+var gitIssue string
 
-// mineCmd represents the mine command
-var mineCmd = &cobra.Command{
-	Use:   "mine",
-	Short: "List all the items in tracking sheet in my name",
-	Long:  `Fetch and display all the items in my name from K8s Enhancements Google Sheet`,
+// updateCmd represents the update command
+var updateCmd = &cobra.Command{
+	Use:   "update",
+	Short: "Update Google Spreadsheet with Details",
+	Long: `Update Google Spreadsheet with Details`,
 	PreRun: func(cmd *cobra.Command, args []string) {
-		sheets.CreateSheetServiceWithAPIKey(viper.GetString("api-key"))
+		sheets.CreateSheetServiceWithOAuth()
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		utils.DisplayRows(sheets.GetMyAssignmentsV2(viper.GetString("user"), viper.GetString("enhancement-status")))
+		data := make(map[string]interface{}, 0)
+
+		for t, v := range updates {
+			data[t] = v
+		}
+		sheets.UpdateRecord(gitIssue, data)
 	},
 }
 
 func init() {
-	sheetCmd.AddCommand(mineCmd)
+	sheetCmd.AddCommand(updateCmd)
 
-	mineCmd.PersistentFlags().StringVar(&userName, "user", "", "Filter values for C10")
-	mineCmd.PersistentFlags().StringVar(&trackStatus, "enhancement-status", "", "Enhancement Status to Filter")
-	_ = viper.BindPFlags(mineCmd.PersistentFlags())
+	updateCmd.Flags().StringToStringVar(&updates, "records", nil, "Specify fields to update with respective values")
+	updateCmd.Flags().StringVar(&gitIssue, "eid", "", "Enhancement ID/GitHub Issue ID")
+	_ = viper.BindPFlags(updateCmd.PersistentFlags())
 }

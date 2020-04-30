@@ -47,3 +47,15 @@ type TrackSpec struct {
 type Tracker struct {
 	Records map[string]TrackSpec `json:"records"`
 }
+
+type SpreadSheetCell struct {
+	 Row  int
+	 Column string
+}
+
+var TypeToColumnMap = map[string]string {
+	"stats": "D",
+	"stageStatus": "E",
+	"stage": "F",
+	"notes": "M",
+}
