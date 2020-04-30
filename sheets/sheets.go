@@ -115,6 +115,9 @@ func GetMyAssignments(username string) []*models.EnhancementRow {
 					continue
 				}
 				enh := &models.EnhancementRow{}
+				if len(row) < 5 {
+					continue
+				}
 				for _, index := range []int{0, 1, 3, 4, 5, 6, 7, 8, 9} {
 					reflect.ValueOf(enh).Elem().FieldByName(models.AttributeMapper[index]).SetString(fmt.Sprintf("%s", row[index]))
 				}

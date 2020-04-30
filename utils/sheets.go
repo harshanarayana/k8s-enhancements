@@ -48,9 +48,10 @@ func DisplayRows(issues []*models.EnhancementRow) {
 	}
 	table.SetBorder(true)
 	table.SetRowLine(true)
-	table.SetColMinWidth(1, 75)
+	table.SetColWidth(52)
+	table.SetColMinWidth(1, 50)
 	table.SetColMinWidth(9, 10)
-	table.SetAutoWrapText(false)
+	table.SetAutoWrapText(true)
 	table.AppendBulk(data)
 	table.Render()
 }
