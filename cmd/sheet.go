@@ -16,15 +16,11 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
-	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"os"
-	"strings"
 )
 
-var credentialFile string
+var apiKey string
 
 // sheetCmd represents the sheet command
 var sheetCmd = &cobra.Command{
@@ -36,16 +32,6 @@ var sheetCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(sheetCmd)
 
-	home, err := homedir.Dir()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-
-	homeConfigPath := strings.Join([]string{home, ".k8s-enhancements"}, string(os.PathSeparator))
-
-	configFile := strings.Join([]string{homeConfigPath, "sheet-credentials.json"}, string(os.PathSeparator))
-	sheetCmd.PersistentFlags().StringVar(&credentialFile, "sheet-credentials", configFile, "Google Sheets Access Credentials")
-
+	sheetCmd.PersistentFlags().StringVar(&apiKey, "api-key", "", "API Key to access Google Sheets")
 	_ = viper.BindPFlags(sheetCmd.PersistentFlags())
 }

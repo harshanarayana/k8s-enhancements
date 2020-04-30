@@ -31,10 +31,10 @@ var mineCmd = &cobra.Command{
 	Short: "List all the items in tracking sheet in my name",
 	Long:  `Fetch and display all the items in my name from K8s Enhancements Google Sheet`,
 	PreRun: func(cmd *cobra.Command, args []string) {
-		sheets.InitSheetClient(viper.GetString("sheet-credentials"))
+		sheets.Setup(viper.GetString("api-key"))
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		utils.DisplayRows(sheets.GetMyAssignments(viper.GetString("user"), viper.GetString("enhancement-status")))
+		utils.DisplayRows(sheets.GetMyAssignmentsV2(viper.GetString("user"), viper.GetString("enhancement-status")))
 	},
 }
 
