@@ -1,4 +1,8 @@
 # k8s-enhancements
+![OSX Pre Release Builds](https://github.com/harshanarayana/k8s-enhancements/workflows/OSX%20Pre%20Release%20Builds/badge.svg)
+![Ubuntu Pre Release Builds](https://github.com/harshanarayana/k8s-enhancements/workflows/Ubuntu%20Pre%20Release%20Builds/badge.svg)
+![Windows Pre Release Builds](https://github.com/harshanarayana/k8s-enhancements/workflows/Windows%20Pre%20Release%20Builds/badge.svg)
+
 A tool to help track and manage [kubernetes/enhancements](https://github.com/kubernetes/enhancements) repo and tracking sheets.
 
 # Setup
