@@ -4,10 +4,45 @@ import (
 	"github.com/olekukonko/tablewriter"
 	"k8s-enhancements/models"
 	"os"
+	"strconv"
 	"strings"
 )
 
 var tracker models.Tracker
+
+func DisplaySummary(summary map[string]models.Summary)  {
+	table := tablewriter.NewWriter(os.Stdout)
+
+	table.SetHeader([]string{"Enhancement Status", "Issue Count", "Issue ID", "Issue Description"})
+
+	table.SetHeaderColor(
+		tablewriter.Colors{tablewriter.Bold},
+		tablewriter.Colors{tablewriter.Bold},
+		tablewriter.Colors{tablewriter.Bold},
+		tablewriter.Colors{tablewriter.Bold},
+	)
+
+	var data [][]string
+
+	for status, info := range summary {
+		for id, desc := range info.IssueData {
+			r := make([]string, 0)
+			r = append(r, status)
+			r = append(r, strconv.Itoa(info.Count))
+			r = append(r, id)
+			r = append(r, desc)
+			data = append(data, r)
+		}
+	}
+
+	table.SetAutoMergeCells(true)
+	table.SetBorder(true)
+	table.SetRowLine(true)
+	table.SetColWidth(80)
+	table.SetAutoWrapText(true)
+	table.AppendBulk(data)
+	table.Render()
+}
 
 func DisplayRows(issues []*models.EnhancementRow) {
 	table := tablewriter.NewWriter(os.Stdout)

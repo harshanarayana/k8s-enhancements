@@ -59,3 +59,8 @@ var TypeToColumnMap = map[string]string{
 	"stage":       "F",
 	"notes":       "M",
 }
+
+type Summary struct{
+	Count int
+	IssueData map[string]string
+}

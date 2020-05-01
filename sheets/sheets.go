@@ -92,3 +92,20 @@ func UpdateRecord(issueId string, data map[string]interface{}) {
 		}
 	}
 }
+
+func GetSummary(owner string) map[string]models.Summary {
+	items := GetMyAssignmentsV2(owner, "")
+	data := make(map[string]models.Summary)
+
+	for _, item := range items {
+
+		if _, ok := data[item.EnhancementStatus]; !ok {
+			data[item.EnhancementStatus] = models.Summary{IssueData: make(map[string]string, 0)}
+		}
+		s := data[item.EnhancementStatus]
+		s.Count += 1
+		s.IssueData[item.IssueID] = item.EnhancementTitle
+		data[item.EnhancementStatus] = s
+	}
+	return data
+}
