@@ -54,7 +54,7 @@ type SpreadSheetCell struct {
 }
 
 var TypeToColumnMap = map[string]string {
-	"stats": "D",
+	"status": "D",
 	"stageStatus": "E",
 	"stage": "F",
 	"notes": "M",
