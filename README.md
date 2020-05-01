@@ -26,7 +26,7 @@ The name of the template file is the name you can use while invoking the command
 list of GitHub users `@` prefixed to the name. Multiple names are split with `/` 
 
 ### Example Template
-Save this file as `~/.k8s-enhancements/templates/initial`. Not you can use the `--template initial` as an argument to invoke the CLI.
+Save this file as `~/.k8s-enhancements/templates/initial`. Now, you can use the `--template initial` as an argument to invoke the CLI.
 
 ```markdown
 Hey there {{.Mentions}} -- 1.19 Enhancements shadow here. I wanted to check in and see if you think this Enhancement will be graduating in 1.19?
