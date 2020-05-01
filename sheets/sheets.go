@@ -50,7 +50,7 @@ func findCell(issueID, infoType string) models.SpreadSheetCell {
 
 	if infoType != "" {
 		if col, ok := models.TypeToColumnMap[infoType]; !ok {
-			panic(fmt.Errorf("failed to determine column for entity type %s", infoType,))
+			panic(fmt.Errorf("failed to determine column for entity type %s", infoType))
 		} else {
 			cell.Column = col
 		}
@@ -83,10 +83,10 @@ func UpdateRecord(issueId string, data map[string]interface{}) {
 		} else {
 			cell.Column = col
 		}
-		cellRange := strings.Join([]string{"Enhancements!",cell.Column, strconv.Itoa(cell.Row)}, "")
+		cellRange := strings.Join([]string{"Enhancements!", cell.Column, strconv.Itoa(cell.Row)}, "")
 		if _, err := GetSheetService().Spreadsheets.Values.Update(K8SSheetId, cellRange, &sheets.ValueRange{
 			MajorDimension: "COLUMNS",
-			Values: [][]interface{}{{value}},
+			Values:         [][]interface{}{{value}},
 		}).ValueInputOption("RAW").Do(); err != nil {
 			panic(err)
 		}

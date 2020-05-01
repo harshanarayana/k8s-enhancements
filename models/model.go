@@ -49,13 +49,13 @@ type Tracker struct {
 }
 
 type SpreadSheetCell struct {
-	 Row  int
-	 Column string
+	Row    int
+	Column string
 }
 
-var TypeToColumnMap = map[string]string {
-	"status": "D",
+var TypeToColumnMap = map[string]string{
+	"status":      "D",
 	"stageStatus": "E",
-	"stage": "F",
-	"notes": "M",
+	"stage":       "F",
+	"notes":       "M",
 }

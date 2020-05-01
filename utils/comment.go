@@ -31,7 +31,7 @@ func GetCommentMessage(templateName string, mentions []string) string {
 func getUsers(mentions []string) []string {
 	var users []string = make([]string, 0)
 	for _, m := range mentions {
-		users = append(users, "@" + m)
+		users = append(users, "@"+m)
 	}
 	return users
 }

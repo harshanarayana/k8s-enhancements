@@ -33,7 +33,7 @@ var owner string
 var commentCmd = &cobra.Command{
 	Use:   "comment",
 	Short: "Add a Comment to GitHub Issue using Template",
-	Long: `Add a Comment to GitHub Issue using Template`,
+	Long:  `Add a Comment to GitHub Issue using Template`,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		git.InitGit(viper.GetString("git-access-token"))
 	},

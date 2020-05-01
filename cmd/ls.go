@@ -24,7 +24,7 @@ import (
 var lsCmd = &cobra.Command{
 	Use:   "ls",
 	Short: "Get a List of all available Templates",
-	Long: `List all available GitHub issue comment templates`,
+	Long:  `List all available GitHub issue comment templates`,
 	Run: func(cmd *cobra.Command, args []string) {
 		utils.ListTemplates()
 	},

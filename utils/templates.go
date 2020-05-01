@@ -9,13 +9,13 @@ import (
 	"strings"
 )
 
-func ListTemplates()  {
+func ListTemplates() {
 	templatePath := strings.Join([]string{common.GetConfigHome(), "templates"}, string(os.PathSeparator))
 
 	var tmpInfo = make(map[string]string, 0)
 
 	if err := filepath.Walk(templatePath, func(path string, info os.FileInfo, err error) error {
-		if ! info.IsDir() {
+		if !info.IsDir() {
 
 			if b, err := ioutil.ReadFile(path); err != nil {
 				return nil

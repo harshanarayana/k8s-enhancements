@@ -28,7 +28,7 @@ var gitIssue string
 var updateCmd = &cobra.Command{
 	Use:   "update",
 	Short: "Update Google Spreadsheet with Details",
-	Long: `Update Google Spreadsheet with Details`,
+	Long:  `Update Google Spreadsheet with Details`,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		sheets.CreateSheetServiceWithOAuth()
 	},

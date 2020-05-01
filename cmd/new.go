@@ -32,14 +32,14 @@ var tmplName string
 var newCmd = &cobra.Command{
 	Use:   "new",
 	Short: "Create new GitHub issue comment template",
-	Long: `Create new GitHub issue comment template`,
+	Long:  `Create new GitHub issue comment template`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if tmplName == "" {
 			panic(fmt.Errorf("please enter a valid --template arg"))
 		}
 
 		templateFile := strings.Join([]string{common.GetConfigHome(), "templates", tmplName}, string(os.PathSeparator))
-		if _, err := os.Stat(templateFile); err ==nil || ! os.IsNotExist(err) {
+		if _, err := os.Stat(templateFile); err == nil || !os.IsNotExist(err) {
 			panic(fmt.Errorf("template file %s already exists", templateFile))
 		}
 		scanner := bufio.NewScanner(os.Stdin)

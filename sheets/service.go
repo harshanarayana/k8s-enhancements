@@ -62,7 +62,7 @@ func saveToken(path string, token *oauth2.Token) {
 	_ = json.NewEncoder(f).Encode(token)
 }
 
-func CreateSheetServiceWithOAuth()  {
+func CreateSheetServiceWithOAuth() {
 	credentialFile := strings.Join([]string{common.GetConfigHome(), "credentials.json"}, string(os.PathSeparator))
 	if b, err := ioutil.ReadFile(credentialFile); err != nil {
 		panic(err)
@@ -86,7 +86,7 @@ func CreateSheetServiceWithOAuth()  {
 	}
 }
 
-func CreateSheetServiceWithAPIKey(apiKey string)  {
+func CreateSheetServiceWithAPIKey(apiKey string) {
 	if svc, err := sheets.NewService(context.Background(), option.WithAPIKey(apiKey), option.WithScopes(sheets.SpreadsheetsScope)); err != nil {
 		panic(err)
 	} else {

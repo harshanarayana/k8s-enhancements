@@ -30,7 +30,7 @@ var templateName string
 var rmCmd = &cobra.Command{
 	Use:   "rm",
 	Short: "Remove a GitHub Issue Comment Template",
-	Long: `Remove a GitHub Issue Comment Template`,
+	Long:  `Remove a GitHub Issue Comment Template`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if templateName != "" {
 			basePath := strings.Join([]string{common.GetConfigHome(), "templates", templateName}, string(os.PathSeparator))

@@ -23,7 +23,7 @@ import (
 var templatesCmd = &cobra.Command{
 	Use:   "templates",
 	Short: "GitHub issue comment template management",
-	Long: `GitHub issue comment template management`,
+	Long:  `GitHub issue comment template management`,
 }
 
 func init() {
