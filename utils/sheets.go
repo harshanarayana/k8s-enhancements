@@ -10,7 +10,7 @@ import (
 
 var tracker models.Tracker
 
-func DisplaySummary(summary map[string]models.Summary)  {
+func DisplaySummary(summary map[string]models.Summary) {
 	table := tablewriter.NewWriter(os.Stdout)
 
 	table.SetHeader([]string{"Enhancement Status", "Issue Count", "Issue ID", "Issue Description"})

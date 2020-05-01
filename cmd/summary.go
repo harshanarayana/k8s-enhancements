@@ -29,7 +29,7 @@ var assignee string
 var summaryCmd = &cobra.Command{
 	Use:   "summary",
 	Short: "Get Summary of All the items being Tracked",
-	Long: `Get Summary of All the items being Tracked`,
+	Long:  `Get Summary of All the items being Tracked`,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		sheets.CreateSheetServiceWithAPIKey(viper.GetString("api-key"))
 	},
