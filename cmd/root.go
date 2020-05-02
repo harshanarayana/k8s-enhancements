@@ -30,9 +30,13 @@ var gitAccess models.GitAccess
 
 var cfgFile string
 
+var commitHash = "Unknown"
+var version = "0.0.1-alpha"
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "k8s-enhancements",
+	Version: version,
 	Short: "A tool to help manage kubernets/enhancements",
 	Long: `A helper tool for managing kubernetes/enhancements and related Google Sheets.
 
@@ -53,7 +57,7 @@ func init() {
 	cobra.OnInitialize(setupClients)
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.k8s-enhancements/config.yaml)")
-
+	rootCmd.SetVersionTemplate(fmt.Sprintf("\nVersion: %s \nCommit Hash: %s \n", version, commitHash))
 	_ = viper.BindPFlags(rootCmd.PersistentFlags())
 }
 
