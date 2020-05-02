@@ -32,6 +32,7 @@ var rmCmd = &cobra.Command{
 	Short: "Remove a GitHub Issue Comment Template",
 	Long:  `Remove a GitHub Issue Comment Template`,
 	Run: func(cmd *cobra.Command, args []string) {
+		templateName = viper.GetString("template")
 		if templateName != "" {
 			basePath := strings.Join([]string{common.GetConfigHome(), "templates", templateName}, string(os.PathSeparator))
 			_ = os.Remove(basePath)
@@ -41,8 +42,4 @@ var rmCmd = &cobra.Command{
 
 func init() {
 	templatesCmd.AddCommand(rmCmd)
-
-	rmCmd.PersistentFlags().StringVar(&templateName, "template", "", "Template name to cleanup")
-
-	_ = viper.BindPFlags(rmCmd.PersistentFlags())
 }

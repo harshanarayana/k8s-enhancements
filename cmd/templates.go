@@ -17,7 +17,10 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
+
+var tplName string
 
 // templatesCmd represents the templates command
 var templatesCmd = &cobra.Command{
@@ -28,4 +31,8 @@ var templatesCmd = &cobra.Command{
 
 func init() {
 	gitCmd.AddCommand(templatesCmd)
+
+	templatesCmd.PersistentFlags().StringVar(&tplName, "template", "initial", "Template name to use for Comments")
+
+	_ = viper.BindPFlags(templatesCmd.PersistentFlags())
 }

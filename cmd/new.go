@@ -34,6 +34,7 @@ var newCmd = &cobra.Command{
 	Short: "Create new GitHub issue comment template",
 	Long:  `Create new GitHub issue comment template`,
 	Run: func(cmd *cobra.Command, args []string) {
+		tmplName = viper.GetString("template")
 		if tmplName == "" {
 			panic(fmt.Errorf("please enter a valid --template arg"))
 		}
@@ -59,8 +60,4 @@ var newCmd = &cobra.Command{
 
 func init() {
 	templatesCmd.AddCommand(newCmd)
-
-	newCmd.PersistentFlags().StringVar(&tmplName, "template", "", "Template Name for the new Template")
-
-	_ = viper.BindPFlags(newCmd.PersistentFlags())
 }

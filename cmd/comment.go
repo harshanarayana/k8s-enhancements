@@ -26,8 +26,6 @@ import (
 var issueId int
 var template string
 var refer []string
-var repo string
-var owner string
 
 // commentCmd represents the comment command
 var commentCmd = &cobra.Command{
@@ -38,7 +36,7 @@ var commentCmd = &cobra.Command{
 		git.InitGit(viper.GetString("git-access-token"))
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		message := utils.GetCommentMessage(viper.GetString("template"), viper.GetStringSlice("mention"))
+		message := utils.GetCommentMessage(viper.GetString("tpl"), viper.GetStringSlice("mention"))
 		git.AddComment(viper.GetString("owner"), viper.GetString("repo"), message, viper.GetInt("git-issue"))
 	},
 }
@@ -47,7 +45,7 @@ func init() {
 	issuesCmd.AddCommand(commentCmd)
 
 	commentCmd.PersistentFlags().IntVar(&issueId, "git-issue", 1, "GitHub Issue ID")
-	commentCmd.PersistentFlags().StringVar(&template, "template", "initial", "Comment Message template to use")
+	commentCmd.PersistentFlags().StringVar(&template, "tpl", "initial", "Comment Message template to use")
 	commentCmd.PersistentFlags().StringSliceVar(&refer, "mention", []string{}, "Mention use to be listed in the Comment")
 	_ = viper.BindPFlags(commentCmd.PersistentFlags())
 }
