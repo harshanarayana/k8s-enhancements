@@ -4,6 +4,7 @@ import (
 	"github.com/olekukonko/tablewriter"
 	"k8s-enhancements/models"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -25,12 +26,24 @@ func DisplaySummary(summary map[string]models.Summary) {
 	var data [][]string
 
 	for status, info := range summary {
-		for id, desc := range info.IssueData {
+		issueIDs := make([]string, 0)
+		for id, _ := range info.IssueData {
+			issueIDs = append(issueIDs, id)
+		}
+
+		// Pass in our list and a func to compare values
+		sort.Slice(issueIDs, func(i, j int) bool {
+			numA, _ := strconv.Atoi(issueIDs[i])
+			numB, _ := strconv.Atoi(issueIDs[j])
+			return numA < numB
+		})
+
+		for _, id := range issueIDs {
 			r := make([]string, 0)
 			r = append(r, status)
 			r = append(r, strconv.Itoa(info.Count))
 			r = append(r, id)
-			r = append(r, desc)
+			r = append(r, info.IssueData[id])
 			data = append(data, r)
 		}
 	}
