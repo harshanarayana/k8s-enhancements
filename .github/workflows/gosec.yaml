@@ -1,0 +1,24 @@
+name: Run Gosec
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  sec:
+    name: Run gosec Scans
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Set up Go 1.x
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.14
+        id: go
+      - name: Get gosec
+        run: go get github.com/securego/gosec/cmd/gosec
+
+      - name: Run GoSec Checks
+        run: gosec -exclude=G304,G306,G307 ./...
