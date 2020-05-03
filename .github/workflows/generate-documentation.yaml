@@ -1,0 +1,47 @@
+name: Generate Documentations
+
+on:
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - 'docs/**'
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Set up Go 1.x
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.14
+        id: go
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+
+      - name: Get dependencies
+        run: |
+          go get -v -t -d ./...
+
+      - name: Build
+        run: go build -ldflags "-X 'k8s-enhancements/cmd.commitHash=`git rev-parse HEAD`'"
+
+      - name: Generate Documentation
+        run: ./k8s-enhancements document
+
+      - name: Commit Documentation changes
+        run: |
+          echo ${{ github.ref }}
+          git add ./docs
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "CI: Automated build push" -a | exit 0
+
+      - name: Publish Changes to the Repo
+        if: github.ref == 'refs/heads/master'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
