@@ -18,8 +18,8 @@ A command to track k/* Issues for enhancements purpose
       --config string             config file (default is $HOME/.k8s-enhancements/config.yaml)
   -t, --git-access-token string   GitHub Access token
   -u, --git-user string           GitHub Username
-  -o, --owner string              GitHub Repo Owner (default "kubernetes")
-  -r, --repo string               GitHub Repository (default "enhancements")
+  -o, --owner string              GitHub Repo Owner (default "harshanarayana")
+  -r, --repo string               GitHub Repository (default "k8s-enhancements")
 ```
 
 ### SEE ALSO

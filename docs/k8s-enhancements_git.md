@@ -12,8 +12,8 @@ Helper Utilities to manage kubernetes/enhancements on GitHub
   -t, --git-access-token string   GitHub Access token
   -u, --git-user string           GitHub Username
   -h, --help                      help for git
-  -o, --owner string              GitHub Repo Owner (default "kubernetes")
-  -r, --repo string               GitHub Repository (default "enhancements")
+  -o, --owner string              GitHub Repo Owner (default "harshanarayana")
+  -r, --repo string               GitHub Repository (default "k8s-enhancements")
 ```
 
 ### Options inherited from parent commands
