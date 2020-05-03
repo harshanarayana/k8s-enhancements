@@ -49,5 +49,10 @@ func init() {
 	commentCmd.PersistentFlags().StringVar(&template, "tpl", "initial", "Comment Message template to use")
 	commentCmd.PersistentFlags().StringSliceVar(&refer, "mention", []string{}, "Mention use to be listed in the Comment")
 	commentCmd.PersistentFlags().StringSliceVar(&missingItem, "missing", []string{}, "Missing items in the KEP for not being included in Release")
+
+	_ = commentCmd.MarkPersistentFlagRequired("git-issue")
+	_ = commentCmd.MarkPersistentFlagRequired("tpl")
+	_ = commentCmd.MarkPersistentFlagRequired("mention")
+
 	_ = viper.BindPFlags(commentCmd.PersistentFlags())
 }

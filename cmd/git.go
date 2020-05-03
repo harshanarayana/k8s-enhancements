@@ -35,5 +35,8 @@ func init() {
 	gitCmd.PersistentFlags().StringVarP(&gitAccess.UserName, "git-user", "u", "", "GitHub Username")
 	gitCmd.PersistentFlags().StringVarP(&gitAccess.AccessToken, "git-access-token", "t", "", "GitHub Access token")
 
+	_ = gitCmd.MarkPersistentFlagRequired("owner")
+	_ = gitCmd.MarkPersistentFlagRequired("repo")
+
 	_ = viper.BindPFlags(gitCmd.PersistentFlags())
 }
