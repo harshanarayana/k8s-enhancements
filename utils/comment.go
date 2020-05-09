@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func GetCommentMessage(templateName string, mentions, missing []string) string {
+func GetCommentMessage(templateName string, mentions, missing, stages []string) string {
 	basePath := common.GetConfigHome()
 	templatePath := strings.Join([]string{basePath, "templates", templateName}, string(os.PathSeparator))
 
@@ -20,15 +20,25 @@ func GetCommentMessage(templateName string, mentions, missing []string) string {
 		var tpl bytes.Buffer
 		if err := tmpl.Execute(&tpl, struct {
 			Mentions string
-			Missing string
+			Missing  string
+			Stage    string
 		}{
 			Mentions: strings.Join(getUsers(mentions), " / "),
-			Missing: getMissing(missing),
+			Missing:  getMissing(missing),
+			Stage:    getStage(stages),
 		}); err != nil {
 			panic(err)
 		}
 		return tpl.String()
 	}
+}
+
+func getStage(stages []string) string {
+	var fStage []string
+	for _, s := range stages {
+		fStage = append(fStage, fmt.Sprintf("`%s`", s))
+	}
+	return strings.Join(fStage, "/")
 }
 
 func getUsers(mentions []string) []string {
@@ -45,8 +55,8 @@ func getMissing(missing []string) string {
 	})
 
 	if len(missing) > 2 {
-		lastString := missing[len(missing) - 1]
-		return strings.Join([]string{strings.Join(missing[:len(missing) - 1], ", "), lastString}, " and ")
+		lastString := missing[len(missing)-1]
+		return strings.Join([]string{strings.Join(missing[:len(missing)-1], ", "), lastString}, " and ")
 	} else if len(missing) > 1 {
 		return strings.Join(missing, " and ")
 	} else {

@@ -24,7 +24,7 @@ import (
 var documentCmd = &cobra.Command{
 	Use:   "document",
 	Short: "Generate documentation for the CLI Tool",
-	Long: `Generate Markdown Documentation for CLI usages`,
+	Long:  `Generate Markdown Documentation for CLI usages`,
 	Run: func(cmd *cobra.Command, args []string) {
 		_ = doc.GenMarkdownTree(rootCmd, "./docs")
 	},

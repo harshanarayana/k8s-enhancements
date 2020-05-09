@@ -27,6 +27,7 @@ var issueId int
 var template string
 var refer []string
 var missingItem []string
+var stages []string
 
 // commentCmd represents the comment command
 var commentCmd = &cobra.Command{
@@ -37,7 +38,7 @@ var commentCmd = &cobra.Command{
 		git.InitGit(viper.GetString("git-access-token"))
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		message := utils.GetCommentMessage(viper.GetString("tpl"), viper.GetStringSlice("mention"), viper.GetStringSlice("missing"))
+		message := utils.GetCommentMessage(viper.GetString("tpl"), viper.GetStringSlice("mention"), viper.GetStringSlice("missing"), viper.GetStringSlice("stage"))
 		git.AddComment(viper.GetString("owner"), viper.GetString("repo"), message, viper.GetInt("git-issue"))
 	},
 }
@@ -49,10 +50,13 @@ func init() {
 	commentCmd.PersistentFlags().StringVar(&template, "tpl", "initial", "Comment Message template to use")
 	commentCmd.PersistentFlags().StringSliceVar(&refer, "mention", []string{}, "Mention use to be listed in the Comment")
 	commentCmd.PersistentFlags().StringSliceVar(&missingItem, "missing", []string{}, "Missing items in the KEP for not being included in Release")
+	commentCmd.PersistentFlags().StringSliceVar(&stages, "stage", []string{}, "Inclusion stage details alpha/beta/stable")
 
 	_ = commentCmd.MarkPersistentFlagRequired("git-issue")
 	_ = commentCmd.MarkPersistentFlagRequired("tpl")
 	_ = commentCmd.MarkPersistentFlagRequired("mention")
+	_ = commentCmd.MarkPersistentFlagRequired("owner")
+	_ = commentCmd.MarkPersistentFlagRequired("repo")
 
 	_ = viper.BindPFlags(commentCmd.PersistentFlags())
 }

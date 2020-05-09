@@ -35,9 +35,9 @@ var version = "0.0.1-alpha"
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "k8s-enhancements",
+	Use:     "k8s-enhancements",
 	Version: version,
-	Short: "A tool to help manage kubernets/enhancements",
+	Short:   "A tool to help manage kubernets/enhancements",
 	Long: `A helper tool for managing kubernetes/enhancements and related Google Sheets.
 
 Tooling to help sig/release enhancements team for their active duration`,
