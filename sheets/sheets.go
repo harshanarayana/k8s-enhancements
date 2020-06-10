@@ -100,12 +100,19 @@ func GetSummary(owner string) map[string]models.Summary {
 	for _, item := range items {
 
 		if _, ok := data[item.EnhancementStatus]; !ok {
-			data[item.EnhancementStatus] = models.Summary{IssueData: make(map[string]string, 0)}
+			data[item.EnhancementStatus] = models.Summary{IssueData: map[string][]models.IssueSummary{}}
 		}
-		s := data[item.EnhancementStatus]
-		s.Count += 1
-		s.IssueData[item.IssueID] = item.EnhancementTitle
-		data[item.EnhancementStatus] = s
+
+		if _, ok := data[item.EnhancementStatus].IssueData[item.Stage]; !ok {
+			data[item.EnhancementStatus].IssueData[item.Stage] = make([]models.IssueSummary, 0)
+		}
+
+		data[item.EnhancementStatus].IssueData[item.Stage] = append(data[item.EnhancementStatus].IssueData[item.Stage], models.IssueSummary{
+			Title:   item.EnhancementTitle,
+			Stage:   item.Stage,
+			Status:  item.StageStatus,
+			IssueId: item.IssueID,
+		})
 	}
 	return data
 }

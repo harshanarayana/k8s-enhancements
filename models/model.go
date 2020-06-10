@@ -60,7 +60,13 @@ var TypeToColumnMap = map[string]string{
 	"notes":       "M",
 }
 
+type IssueSummary struct {
+	IssueId string `json:"issue_id"`
+	Title   string `json:"title"`
+	Stage   string `json:"stage"`
+	Status  string `json:"status"`
+}
+
 type Summary struct {
-	Count     int
-	IssueData map[string]string
+	IssueData map[string][]IssueSummary
 }

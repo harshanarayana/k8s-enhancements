@@ -4,7 +4,6 @@ import (
 	"github.com/olekukonko/tablewriter"
 	"k8s-enhancements/models"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -14,9 +13,10 @@ var tracker models.Tracker
 func DisplaySummary(summary map[string]models.Summary) {
 	table := tablewriter.NewWriter(os.Stdout)
 
-	table.SetHeader([]string{"Enhancement Status", "Issue Count", "Issue ID", "Issue Description"})
+	table.SetHeader([]string{"Enhancement Status", "Stage", "Issue Count", "Issue ID", "Issue Description"})
 
 	table.SetHeaderColor(
+		tablewriter.Colors{tablewriter.Bold},
 		tablewriter.Colors{tablewriter.Bold},
 		tablewriter.Colors{tablewriter.Bold},
 		tablewriter.Colors{tablewriter.Bold},
@@ -26,25 +26,16 @@ func DisplaySummary(summary map[string]models.Summary) {
 	var data [][]string
 
 	for status, info := range summary {
-		issueIDs := make([]string, 0)
-		for id, _ := range info.IssueData {
-			issueIDs = append(issueIDs, id)
-		}
-
-		// Pass in our list and a func to compare values
-		sort.Slice(issueIDs, func(i, j int) bool {
-			numA, _ := strconv.Atoi(issueIDs[i])
-			numB, _ := strconv.Atoi(issueIDs[j])
-			return numA < numB
-		})
-
-		for _, id := range issueIDs {
-			r := make([]string, 0)
-			r = append(r, status)
-			r = append(r, strconv.Itoa(info.Count))
-			r = append(r, id)
-			r = append(r, info.IssueData[id])
-			data = append(data, r)
+		for stage, records := range info.IssueData {
+			for _, record := range records {
+				r := make([]string, 0)
+				r = append(r, status)
+				r = append(r, stage)
+				r = append(r, strconv.Itoa(len(records)))
+				r = append(r, record.IssueId)
+				r = append(r, record.Title)
+				data = append(data, r)
+			}
 		}
 	}
 
